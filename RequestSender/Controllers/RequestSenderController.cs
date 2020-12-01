@@ -27,10 +27,11 @@ namespace RequestSender.Controllers
         }
 
         [HttpPost("Add")]
-        public async Task<ActionResult<string>> AddAsync(string serializedRequest)
+        public async Task<ActionResult<string>> AddAsync([FromBody]string serializedRequest)
         {
             HotelAvailNotifRQRequest request;
             XmlSerializer formatter = new XmlSerializer(typeof(HotelAvailNotifRQRequest));
+            return serializedRequest;
 
             using (TextReader reader = new StringReader(serializedRequest))
             {
