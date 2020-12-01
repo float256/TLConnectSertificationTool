@@ -37,7 +37,7 @@ namespace RequestSender
                 .ConfigureLogging(logger =>
                 {
                     logger.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
-                })
+                });
         }
     }
 }
