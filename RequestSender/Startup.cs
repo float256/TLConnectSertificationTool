@@ -6,10 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using RequestSender.Services;
+using RequestSender.Services.Repositories;
 using TLConnectServiceReference;
 
 namespace RequestSender
@@ -31,6 +34,8 @@ namespace RequestSender
                 sp => new TLConnectServiceClient(
                     TLConnectServiceClient.EndpointConfiguration.BasicHttpBinding_ITLConnectService,
                     Configuration.GetSection("TLConnectServiceURL").Value));
+            services.AddScoped<IRequestInfoRepository, RequestInfoRepository>();
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:default"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
